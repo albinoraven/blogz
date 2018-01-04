@@ -71,11 +71,9 @@ def register():
             db.session.commit()
             session['email'] = email
             
-            return redirect('/')
+            return redirect('/blog')
         else:
-            
-            return "<h1>Duplicate User</h1>"
-
+            flash('Duplicate User', 'error')          
     return render_template('register.html')
 
 @app.route('/logout')
@@ -85,19 +83,19 @@ def logout():
 
 @app.route('/blog')
 def blog():
-    blog_id = request.args.get("blog_id")
+    
     owner = User.query.filter_by(email=session['email']).first()
-    if request.args.get("blog_id") is True:
-        blogs = Blog.query.filter_by(id=blog_id)
-        return redirect("/blog?id=", blog_id)
+    if request.args:
+        blog_id = request.args.get("id")
+        blog = Blog.query.get(blog_id)
+        return render_template('singleblogentry.html', blog=blog)        
 
-    if blog_id == "": 
-
-        blogs = Blog.query.filter_by(owner=owner).all()
-        return render_template('blog.html')
+    if request.args.get("id") == None: 
+        blogs = Blog.query.all()
+        return render_template('blog.html', blogs=blogs)        
 
 @app.route('/newpost', methods=['POST', 'GET'])
-def index():
+def newpost():
 
     owner = User.query.filter_by(email=session['email']).first()
 
@@ -108,11 +106,9 @@ def index():
         db.session.add(new_post)
         db.session.commit()
 
-        blog_id = Blog.query.get(id)
-
-        return render_template('blog.html',title="Build A Blog!", id=blog_id)
-    else:
-        return render_template('newpost.html')
+        return redirect("/blog?id=" + str(new_post.id))
+    
+    return render_template('newpost.html')
         
     
 

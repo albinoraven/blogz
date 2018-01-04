@@ -4,14 +4,11 @@
     {% if blogs|length == 0 %}
     <p>No blogs yet</p>
     {% else %}
-
-        <ul>
-            {% for blog in blogs %}
-            <li><a href='/blog?id={{blog.id}}'><h3>{{blog.title}}</h3></a></li>
-            <li><h4>{{blog.body}}</h4></li>
-                            
-            {% endfor %}
-        </ul>
-
+        {% for blog in blogs %}
+        <div><a href='/blog?id={{blog.id}}'><h3>{{blog.title}}</h3></a></div>                             
+            
+        <div><h7>{{blog.body}}</h7></div>
+        
+        {% endfor %}
     {% endif %}
 {% endblock %}
