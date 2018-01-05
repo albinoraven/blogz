@@ -5,6 +5,7 @@
     <div><h3>{{blog.title}}</h3></div>                             
             
     <div><h7>{{blog.body}}</h7></div>
-        
+     
+    <div><h7><i>Written by </i></h7><a href='/blog?user={{blog.owner_id}}'>{{blog.owner.username}}</a></div>
     
 {% endblock %}

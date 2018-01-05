@@ -3,11 +3,17 @@
 {% block content %}
     <h1>Build a Blog</h1>
     <form method='post'>
+        Add a New Post:
         <label>
-            Add a New Post:
+            <div>Title</div>
             <input type="text" name='title' required/>
-            <input type="textbox" name='body' required/>
         </label>
+        <label>
+            <div>Post</div>
+            <input type="textarea" name='body' required/>
+        </label>
+              
+        
         <input type="submit" value='Add Post' />
     </form>
 
